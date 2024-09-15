@@ -1,32 +1,42 @@
-let infoEl = document.getElementById("info-el")
 
-function addMapSections() {
-    let rndNumbersList = []
+let mainMapEl = document.querySelector("main");
+let rndNumbersList = []
 
-    for (let i = 0; i < 64; i++) {
-        const newDiv = document.createElement('div')
+function generateMap() {
+    for (let i = 0; i < 8; i++) {
+        let tempNumbersList = []
 
-        const rndNumber = Math.floor(Math.random(2) * 10)
-
-        rndNumbersList.push(rndNumber)
-
-        if (rndNumber > 5) {
-            newDiv.classList.add('wall') // Add a class
-        } else {
-            newDiv.classList.add('empty') // Add a class
+        for (let j = 0; j < 8; j++) {
+            const rndNumber = Math.floor(Math.random() * 2)
+            tempNumbersList.push(rndNumber)
         }
-
-        // newDiv.innerHTML = 'new div' // Add content
-    
-        let mainMapEl = document.querySelector("main")
-        mainMapEl.appendChild(newDiv)
+        rndNumbersList.push(tempNumbersList)
     }
-    infoEl.textContent = rndNumbersList
-
 }
 
-addMapSections()
+function renderMap() {
+    for (let number of rndNumbersList.flat(1)) {
+        const newDiv = document.createElement("div")
+        if (number > 0) {
+            newDiv.classList.add("wall")
+        } else {
+            newDiv.classList.add("empty")
+        }
+        mainMapEl.appendChild(newDiv)
+    }
+}
 
+function showMapInfoNums() {
+    // show cells rnd numbers in info <p> elements
+    for (let i = 0; i < 8; i++) {
+        let infoEl = document.getElementById(`${i+1}-info-el`)
+        infoEl.innerHTML = rndNumbersList.slice(i * 8, (i + 1) * 8).join("<br>")
+    }
+}
+
+generateMap()
+renderMap()
+showMapInfoNums()
 
 
 

@@ -43,6 +43,8 @@ main {
 
 }
 
-#info-el {
+.info-elements {
     color: white;
+    background-color: rgb(41, 41, 41);
+    padding: 1px 20px;
 }
